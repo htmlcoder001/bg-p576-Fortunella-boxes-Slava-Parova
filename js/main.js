@@ -814,64 +814,7 @@ jQuery(document).ready(function($){
 
 
 
-		// /******************************************************************************* 
-		//
-		//	 RESPONSIVE IFRAMES
-		//
-		// *******************************************************************************/
-		responsiveAdsFn: function() {
 
-			var mediaQueries = checkMQ();
-			var advBanners = $('section.banner, header .banner').each(function(index, el) {
-				
-				var sectionBanner = $(this);
-				var sectionHeight = sectionBanner.outerHeight();
-				var container = $(this).find('.advert');
-				var advWidth = container.innerWidth();
-				var advHeight = container.innerHeight();
-				var iframe = container.find('iframe');
-				var iframeWidth = iframe.width();
-				var iframeHeight = iframe.height();
-
-				// Responsive banners
-				var baseBanner = {
-					width: iframeWidth,
-					height: iframeHeight,
-					scale: 1
-				};
-
-				if (mediaQueries == "desktop") {
-					TweenMax.set(sectionBanner, { height: "auto" });
-					if (iframe.length > 0) {
-						TweenMax.set([iframe, container], { clearProps: "all" });				
-					} 
-				} else if ( mediaQueries == "tablet" && iframe.length > 0 ) {
-					scaleBanner(iframe, advWidth, advHeight);
-				}
-				
-				function scaleBanner(iframe, maxWidth, maxHeight) {						
-					var scaleX = 1;
-					var scaleY = 1;											
-					scaleX = maxWidth / baseBanner.width;
-					scaleY = maxHeight / baseBanner.height;
-					baseBanner.scaleX = scaleX;
-					baseBanner.scaleY = scaleY;
-					baseBanner.scale = (scaleX > scaleY) ? scaleY : scaleX;
-					
-					TweenMax.set(iframe, {
-						scale: baseBanner.scale,
-						transformOrigin: "left top",
-						onComplete: setIframe
-					});
-				}
-
-				function setIframe() {
-					TweenMax.to(sectionBanner, 0.3, { delay: 0.5, height: Math.round((baseBanner.height * baseBanner.scale) + 48) });
-					TweenMax.to(container, 0.5, { autoAlpha: 1 });
-				}
-		
-			});
-		},
 
 
 		// /******************************************************************************* 
@@ -913,7 +856,6 @@ jQuery(document).ready(function($){
 	App.burgerHoverFn();
 	App.sliderControlsFn();
 	App.popularSliderFn();
-	App.triggerSearchFn();
 	App.sideNavigationFn();
 	App.buttonLinesFn();
 	App.categoryTopicsFn();
@@ -938,7 +880,6 @@ jQuery(document).ready(function($){
 				App.stickySidebarFn();
 				App.bloggersSliderFn();
 				App.menu3dFn();
-				App.responsiveAdsFn();
 			}, 500);
 	};
 
